@@ -242,6 +242,48 @@ def download_xlsx():
     )
 
 
+@app.get("/robots.txt")
+def robots_txt():
+    body = (
+        "User-agent: *\n"
+        "Allow: /\n"
+        "Disallow: /api/\n"
+        "\n"
+        "Sitemap: https://statementcsv.spacebit.qzz.io/sitemap.xml\n"
+    )
+    return body, 200, {"Content-Type": "text/plain; charset=utf-8"}
+
+
+@app.get("/sitemap.xml")
+def sitemap_xml():
+    # Keep in sync with public HTML routes.
+    urls = [
+        ("https://statementcsv.spacebit.qzz.io/", "1.0", "weekly"),
+        ("https://statementcsv.spacebit.qzz.io/pricing", "0.6", "monthly"),
+        ("https://statementcsv.spacebit.qzz.io/privacy", "0.4", "yearly"),
+        ("https://statementcsv.spacebit.qzz.io/guides", "0.8", "weekly"),
+        ("https://statementcsv.spacebit.qzz.io/guides/bank-statement-to-csv", "0.9", "weekly"),
+        (
+            "https://statementcsv.spacebit.qzz.io/guides/why-subscription-converters-frustrate-bookkeepers",
+            "0.7",
+            "monthly",
+        ),
+    ]
+    parts = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    ]
+    for loc, priority, changefreq in urls:
+        parts.append("  <url>")
+        parts.append(f"    <loc>{loc}</loc>")
+        parts.append(f"    <changefreq>{changefreq}</changefreq>")
+        parts.append(f"    <priority>{priority}</priority>")
+        parts.append("  </url>")
+    parts.append("</urlset>")
+    parts.append("")
+    return "\n".join(parts), 200, {"Content-Type": "application/xml; charset=utf-8"}
+
+
 @app.get("/health")
 def health():
     return jsonify(

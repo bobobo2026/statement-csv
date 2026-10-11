@@ -23,3 +23,10 @@ No filenames, PDF bytes, or account numbers are stored.
 
 To add Plausible/Umami/GA4, set a script snippet in templates and document the site ID here.
 Leave `PADDLE_CHECKOUT_ENABLED` unset (checkout stays off).
+
+## SEO endpoints (shipped)
+
+- `GET /robots.txt` — allows public pages; disallows `/api/`
+- `GET /sitemap.xml` — home, pricing, privacy, guides
+- Open Graph + Twitter card + canonical on HTML templates
+
