@@ -1,37 +1,55 @@
 # 部署说明（StatementCSV / BOB-25）
 
-## 当前公网方式（免费子域，无需买域名）
+## 当前线上地址（免费子域，未买域名）
 
-在本机 box 上跑 gunicorn，并用 Cloudflare **Quick Tunnel** 暴露 HTTPS：
+**https://statementcsv.spacebit.qzz.io**
+
+- 跑在用户 Mac：`~/Projects/statement-csv`（gunicorn `127.0.0.1:8765`）
+- 经已有 Cloudflare 命名隧道 `dsh-mac`（UUID `385790e0-…`）公网暴露
+- launchd：`ai.statementcsv.app`（KeepAlive）
+- DNS：`statementcsv.spacebit.qzz.io` → 该隧道（CNAME 已加）
+- **未改动** DSH 认证门；本产品主机名直连 Flask，无 basic-auth
+
+健康检查：`GET /health`
+
+## 重新部署（改代码后）
+
+在 Mac 上：
 
 ```bash
-cd /workspace/bob25/bank-statement-csv
-bash scripts/deploy-tunnel.sh
-cat tmp/live-url.txt
+cd ~/Projects/statement-csv
+git pull
+source .venv/bin/activate
+pip install -r requirements.txt
+launchctl kickstart -k gui/$(id -u)/ai.statementcsv.app
+curl -sS http://127.0.0.1:8765/health
+curl -sS https://statementcsv.spacebit.qzz.io/health
 ```
 
-- URL 形如 `https://xxxx.trycloudflare.com`
-- **不花广告费、不买域名**
-- Quick Tunnel **重启后域名会变**；要固定域名需你自己的 Cloudflare/Fly 账号（我不能代登）
-
-## 重新部署
+若只改了隧道路由（少见）：
 
 ```bash
-cd /workspace/bob25/bank-statement-csv
-bash scripts/deploy-tunnel.sh
+# 编辑 ~/.cloudflared/config.yml 后
+launchctl kickstart -k gui/$(id -u)/ai.deepseek.dsh-tunnel
 ```
 
-改代码后同样再跑一遍即可。
+## Paddle 环境变量
 
-## 可选：持久 PaaS（需你登录）
+复制 `.env.example` → `.env`，填入你在 Paddle 控制台拿到的 token / price id，然后：
 
-| 平台 | 配置文件 | 你需要做的 |
-|------|----------|------------|
-| Fly.io | `fly.toml` + `Dockerfile` | `fly auth login` → `fly launch` / `fly deploy` |
-| Render | `render.yaml` + `Dockerfile` | 用 GitHub 连仓库，选 Free Web Service |
+```bash
+# launchd 不会自动读 .env；可把变量写进 plist EnvironmentVariables，或：
+set -a; source .env; set +a
+launchctl kickstart -k gui/$(id -u)/ai.statementcsv.app
+```
 
-推送代码到 GitHub 后，在对应控制台导入即可。注入与 `.env.example` 相同的 Paddle 变量。
+详见 [PADDLE_SETUP.md](PADDLE_SETUP.md)。
 
-## 健康检查
+## 可选 PaaS（需你登录）
 
-`GET /health` → `{"status":"ok",...}`
+| 平台 | 配置 | 说明 |
+|------|------|------|
+| Fly.io | `fly.toml` + `Dockerfile` | `fly auth login` 后 `fly deploy` |
+| Render | `render.yaml` | 连 GitHub 仓库 Free Web Service |
+
+仓库：https://github.com/bobobo2026/statement-csv
