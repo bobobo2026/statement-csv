@@ -1,0 +1,18 @@
+# Optional: connect this repo in Render dashboard (needs your Render account).
+services:
+  - type: web
+    name: statement-csv
+    runtime: docker
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: PADDLE_ENV
+        value: sandbox
+      - key: PADDLE_CLIENT_TOKEN
+        sync: false
+      - key: PADDLE_PRICE_STARTER
+        sync: false
+      - key: PADDLE_PRICE_PRO
+        sync: false
+      - key: PADDLE_PRICE_BULK
+        sync: false

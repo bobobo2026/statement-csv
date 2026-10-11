@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Privacy — StatementCSV</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header class="top">
+    <div class="brand">StatementCSV</div>
+    <nav>
+      <a href="/">Convert</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/privacy">Privacy</a>
+    </nav>
+  </header>
+  <main class="wrap">
+    <section class="hero">
+      <h1>Privacy</h1>
+      <p class="lead">Short version: your bank PDFs are parsed in memory and not written to disk.</p>
+    </section>
+    <section class="card">
+      <ul>
+        <li>Uploaded PDFs stay in RAM for the request, then are discarded.</li>
+        <li>We do not create accounts or keep a transaction database in this MVP.</li>
+        <li>CSV/Excel downloads are rebuilt from data already in your browser session.</li>
+        <li>Payments (when enabled) are processed by Paddle; card data never hits our servers.</li>
+        <li>Server access logs may record IP and User-Agent at the host layer — not file contents.</li>
+      </ul>
+      <p class="privacy">This is a product privacy notice for the MVP, not legal advice.</p>
+    </section>
+  </main>
+  <footer class="foot"><span>StatementCSV</span></footer>
+</body>
+</html>

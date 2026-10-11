@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bank Statement → CSV / Excel</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header class="top">
+    <div class="brand">StatementCSV</div>
+    <nav>
+      <a href="/">Convert</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/privacy">Privacy</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <h1>Bank statement PDF → CSV / Excel</h1>
+      <p class="lead">
+        Upload a <strong>text-layer</strong> bank statement. We extract transactions,
+        preview them, and run a balance check:
+        <code>opening + deposits − withdrawals = closing</code>.
+      </p>
+      <p class="privacy">
+        🔒 Privacy: your PDF is parsed in memory and <strong>not saved</strong> on our servers.
+        Nothing is retained after you leave this page.
+      </p>
+    </section>
+
+    <section class="card" id="upload-card">
+      <label class="drop" id="dropzone" for="file-input">
+        <input type="file" id="file-input" accept="application/pdf,.pdf" hidden />
+        <span class="drop-title">Drop a PDF here, or click to choose</span>
+        <span class="drop-sub">Text-layer PDFs only · max 15 MB · scanned OCR coming later</span>
+      </label>
+      <div class="row actions" id="file-meta" hidden>
+        <span id="file-name"></span>
+        <button type="button" class="btn primary" id="btn-parse">Extract transactions</button>
+      </div>
+      <p class="err" id="error" hidden></p>
+      <p class="hint" id="status" hidden></p>
+    </section>
+
+    <section class="card" id="result" hidden>
+      <div class="balance" id="balance-box"></div>
+
+      <div class="row between">
+        <h2>Transactions <span class="muted" id="tx-count"></span></h2>
+        <div class="row">
+          <button type="button" class="btn" id="btn-csv">Download CSV</button>
+          <button type="button" class="btn primary" id="btn-xlsx">Download Excel</button>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table id="tx-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Description</th>
+              <th class="num">Deposit</th>
+              <th class="num">Withdrawal</th>
+              <th class="num">Balance</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card muted-card">
+      <h3>MVP limits</h3>
+      <ul>
+        <li>Text-layer (digitally generated) PDFs only — scanned images need OCR (stubbed).</li>
+        <li>Layouts vary by bank; odd formats may need manual cleanup in Excel.</li>
+        <li>No account required for this local demo; page-pack credits will gate volume later.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span>BOB-25 MVP · not financial advice · files not retained</span>
+  </footer>
+  <script src="/static/app.js"></script>
+</body>
+</html>

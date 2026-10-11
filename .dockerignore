@@ -1,0 +1,9 @@
+.venv
+__pycache__
+tmp
+samples
+*.pyc
+.bin
+bin
+.env
+.git

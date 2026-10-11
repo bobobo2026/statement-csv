@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pricing — StatementCSV</title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+</head>
+<body>
+  <header class="top">
+    <div class="brand">StatementCSV</div>
+    <nav>
+      <a href="/">Convert</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/privacy">Privacy</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <h1>Simple page packs — no monthly subscription</h1>
+      <p class="lead">
+        Built for bookkeepers and freelancers who only convert a few dozen pages a month.
+        Pay for pages when you need them. Checkout via Paddle (Merchant of Record).
+      </p>
+      {% if not paddle.ready %}
+      <p class="privacy" id="paddle-status">
+        💳 Live checkout is <strong>not connected yet</strong> — seller must finish Paddle sandbox/live setup
+        (client token + price IDs). Conversion tool stays free meanwhile.
+      </p>
+      {% else %}
+      <p class="privacy" id="paddle-status">
+        ✅ Paddle {{ paddle.env }} checkout ready. Test cards only if env is sandbox.
+      </p>
+      {% endif %}
+    </section>
+
+    <section class="pricing-grid">
+      <article class="price-card">
+        <h2>Starter</h2>
+        <p class="price"><span class="amount">$9</span> / 100 pages</p>
+        <ul>
+          <li>Text-layer PDF → CSV / Excel</li>
+          <li>Balance check on every file</li>
+          <li>No file retention</li>
+        </ul>
+        <button
+          type="button"
+          class="btn paddle-buy"
+          data-pack="starter"
+          data-price-id="{{ paddle.prices.starter }}"
+          {% if not paddle.prices.starter or not paddle.client_token %}disabled title="Paddle price ID not configured"{% endif %}
+        >{% if paddle.prices.starter and paddle.client_token %}Buy with Paddle{% else %}Buy with Paddle (setup needed){% endif %}</button>
+      </article>
+      <article class="price-card featured">
+        <div class="badge">Best for monthly books</div>
+        <h2>Pro pack</h2>
+        <p class="price"><span class="amount">$29</span> / 400 pages</p>
+        <ul>
+          <li>Everything in Starter</li>
+          <li>Credits never expire (planned metering)</li>
+          <li>Same privacy promise</li>
+        </ul>
+        <button
+          type="button"
+          class="btn primary paddle-buy"
+          data-pack="pro"
+          data-price-id="{{ paddle.prices.pro }}"
+          {% if not paddle.prices.pro or not paddle.client_token %}disabled title="Paddle price ID not configured"{% endif %}
+        >{% if paddle.prices.pro and paddle.client_token %}Buy with Paddle{% else %}Buy with Paddle (setup needed){% endif %}</button>
+      </article>
+      <article class="price-card">
+        <h2>Bulk</h2>
+        <p class="price"><span class="amount">$79</span> / 1,500 pages</p>
+        <ul>
+          <li>For seasonal peaks</li>
+          <li>Same privacy promise</li>
+          <li>OCR scanned pages — later add-on</li>
+        </ul>
+        <button
+          type="button"
+          class="btn paddle-buy"
+          data-pack="bulk"
+          data-price-id="{{ paddle.prices.bulk }}"
+          {% if not paddle.prices.bulk or not paddle.client_token %}disabled title="Paddle price ID not configured"{% endif %}
+        >{% if paddle.prices.bulk and paddle.client_token %}Buy with Paddle{% else %}Buy with Paddle (setup needed){% endif %}</button>
+      </article>
+    </section>
+
+    <section class="card muted-card">
+      <h3>Why not a subscription?</h3>
+      <p>
+        Many accountants only need 25–35 pages a month and hate minimum monthly plans.
+        Page packs match that usage.
+      </p>
+      <p class="privacy">Payments go through Paddle as Merchant of Record. We never store your bank PDFs.</p>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span>BOB-25 · StatementCSV · <a href="/privacy">Privacy</a></span>
+  </footer>
+
+  <script>
+    window.__PADDLE__ = {
+      env: {{ paddle.env|tojson }},
+      token: {{ paddle.client_token|tojson }},
+      ready: {{ paddle.ready|tojson }}
+    };
+  </script>
+  <script src="/static/paddle-checkout.js"></script>
+</body>
+</html>
