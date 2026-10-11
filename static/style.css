@@ -165,3 +165,15 @@ code { background: #121a26; padding: .1rem .35rem; border-radius: 4px; font-size
   text-transform: uppercase;
 }
 .price-card a.btn { text-decoration: none; text-align: center; }
+
+/* SEO guide pages */
+.wrap.guide { max-width: 760px; }
+.guide h1 { font-size: 1.85rem; margin: 0 0 .75rem; line-height: 1.25; }
+.guide-body h2 { font-size: 1.2rem; margin: 1.75rem 0 .65rem; }
+.guide-body h2:first-child { margin-top: 0; }
+.guide-body p, .guide-body li { line-height: 1.65; color: var(--muted); }
+.guide-body strong { color: var(--text); }
+.guide-body ol, .guide-body ul { padding-left: 1.25rem; }
+.guide-body li { margin: .4rem 0; }
+.guide-list { list-style: none; padding-left: 0; }
+.guide-list li { margin: 1rem 0; line-height: 1.5; }

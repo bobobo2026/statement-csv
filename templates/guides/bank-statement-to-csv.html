@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>How to Convert a Bank Statement PDF to CSV (With Balance Check) — StatementCSV</title>
+  <meta name="description" content="Step-by-step: convert a text-layer bank statement PDF to CSV or Excel, verify opening + deposits − withdrawals = closing, and download without signup." />
+  <link rel="stylesheet" href="/static/style.css" />
+  <link rel="canonical" href="https://statementcsv.spacebit.qzz.io/guides/bank-statement-to-csv" />
+</head>
+<body>
+  <header class="top">
+    <div class="brand"><a href="/" style="color:inherit;text-decoration:none">StatementCSV</a></div>
+    <nav>
+      <a href="/#upload-card">Convert</a>
+      <a href="/guides">Guides</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/privacy">Privacy</a>
+    </nav>
+  </header>
+
+  <main class="wrap guide">
+    <p class="kicker">Guide · Free tool</p>
+    <h1>How to convert a bank statement PDF to CSV (with a balance check)</h1>
+    <p class="lead">
+      Bookkeepers and freelancers often need a spreadsheet of transactions—not a locked PDF.
+      This guide walks through a practical path: extract rows, download CSV or Excel, and
+      verify the math before you import into QuickBooks, Xero, or your own workbook.
+    </p>
+
+    <div class="cta-row">
+      <a class="btn primary" href="/#upload-card">Convert a statement free</a>
+      <a class="btn" href="/guides/why-subscription-converters-frustrate-bookkeepers">Why many hate subscriptions →</a>
+    </div>
+
+    <section class="card guide-body">
+      <h2>What you need</h2>
+      <ul>
+        <li>A <strong>text-layer</strong> bank statement PDF (issued digitally by the bank, not a photo of paper).</li>
+        <li>About two minutes and a browser—no account required on StatementCSV.</li>
+      </ul>
+      <p class="limit-bar" style="margin-top:1rem">
+        Honest limit: scanned or photographed statements need OCR. StatementCSV does not do OCR yet.
+        If you cannot select text in the PDF viewer, conversion will fail until OCR ships.
+      </p>
+
+      <h2>Step 1 — Confirm it is a text-layer PDF</h2>
+      <ol>
+        <li>Open the statement in any PDF reader.</li>
+        <li>Try to highlight a date or amount with the mouse.</li>
+        <li>If you can select text, you are good. If the page behaves like an image, it is a scan—stop here for now.</li>
+      </ol>
+
+      <h2>Step 2 — Upload and extract</h2>
+      <ol>
+        <li>Go to the <a href="/#upload-card">free converter</a>.</li>
+        <li>Drop the PDF (max 15 MB) or click to choose a file.</li>
+        <li>Click <strong>Extract transactions</strong>.</li>
+      </ol>
+      <p>
+        The tool parses the file in memory and builds a table of dates, descriptions, deposits, withdrawals, and balances when available.
+        Uploads are not written to disk and are discarded after the request.
+      </p>
+
+      <h2>Step 3 — Read the balance check</h2>
+      <p>
+        Before you trust the CSV, check the summary box. A healthy parse aims for:
+      </p>
+      <p><code>opening balance + deposits − withdrawals = closing balance</code></p>
+      <ul>
+        <li><strong>Pass</strong> — row totals line up with the statement’s opening and closing figures (within rounding).</li>
+        <li><strong>Fail</strong> — a row may be missing or miscategorized; fix in Excel before importing to accounting software.</li>
+        <li><strong>Unknown</strong> — the PDF did not expose clear opening/closing amounts; still download and reconcile manually.</li>
+      </ul>
+      <p>
+        This check is the main reason to prefer a dedicated statement converter over a generic “PDF to Excel” dump:
+        generic tools rarely verify that the money still adds up.
+      </p>
+
+      <h2>Step 4 — Download CSV or Excel</h2>
+      <ol>
+        <li>Preview the transaction table on the page.</li>
+        <li>Click <strong>Download CSV</strong> for imports and scripts, or <strong>Download Excel</strong> for filters and formulas.</li>
+        <li>Spot-check a few rows against the PDF (first day, last day, and one large transfer).</li>
+      </ol>
+
+      <h2>Step 5 — Import carefully</h2>
+      <ul>
+        <li>QuickBooks Online / Xero: use their bank CSV import templates; you may need to rename columns.</li>
+        <li>Excel / Google Sheets: filter by date, then match to invoices or receipts.</li>
+        <li>Bank layouts differ. Odd formats may need a few manual fixes—that is normal, not a “100% every bank” claim.</li>
+      </ul>
+
+      <h2>Privacy quick FAQ</h2>
+      <ul>
+        <li><strong>Do you store my PDF?</strong> No. Parsed in RAM for the request, then discarded. See <a href="/privacy">Privacy</a>.</li>
+        <li><strong>Do I need an account?</strong> No.</li>
+        <li><strong>Is it free?</strong> Yes while billing is paused. Optional page packs may come later—no forced monthly seat right now.</li>
+      </ul>
+
+      <h2>Related</h2>
+      <ul>
+        <li><a href="/guides/why-subscription-converters-frustrate-bookkeepers">Why subscription PDF converters frustrate bookkeepers</a></li>
+        <li><a href="/pricing">How pricing will work later</a></li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2 style="margin-top:0;font-size:1.15rem">Ready to try it?</h2>
+      <p class="lead" style="margin-bottom:1rem">Free converter · balance check · no signup · text-layer PDFs only.</p>
+      <a class="btn primary" href="/#upload-card">Convert a bank statement free</a>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span>StatementCSV · <a href="/">Converter</a> · <a href="/privacy">Privacy</a> · not financial advice</span>
+  </footer>
+</body>
+</html>

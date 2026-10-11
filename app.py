@@ -123,6 +123,24 @@ def privacy():
     return render_template("privacy.html")
 
 
+@app.get("/guides")
+def guides_index():
+    bump("page_view")
+    return render_template("guides/index.html")
+
+
+@app.get("/guides/bank-statement-to-csv")
+def guide_bank_statement_to_csv():
+    bump("page_view")
+    return render_template("guides/bank-statement-to-csv.html")
+
+
+@app.get("/guides/why-subscription-converters-frustrate-bookkeepers")
+def guide_subscription_frustration():
+    bump("page_view")
+    return render_template("guides/why-subscription-converters-frustrate-bookkeepers.html")
+
+
 @app.get("/api/config")
 def api_config():
     cfg = paddle_config()
