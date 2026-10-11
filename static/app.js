@@ -16,6 +16,17 @@
   let selectedFile = null;
   let lastTransactions = [];
 
+  function track(event) {
+    try {
+      fetch("/api/event", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ event }),
+        keepalive: true,
+      }).catch(() => {});
+    } catch (_) {}
+  }
+
   function showError(msg) {
     errorEl.hidden = !msg;
     errorEl.textContent = msg || "";
@@ -40,6 +51,7 @@
     fileMeta.hidden = false;
     showError("");
     result.hidden = true;
+    track("file_selected");
   }
 
   dropzone.addEventListener("dragover", (e) => {

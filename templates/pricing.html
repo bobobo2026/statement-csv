@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Pricing — StatementCSV</title>
+  <title>Pricing — StatementCSV (Free now · Page packs coming soon)</title>
+  <meta name="description" content="StatementCSV is free to use now. Page packs with no forced subscription are coming later." />
   <link rel="stylesheet" href="/static/style.css" />
-  <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
 </head>
 <body>
   <header class="top">
@@ -19,25 +19,19 @@
 
   <main class="wrap">
     <section class="hero">
-      <h1>Simple page packs — no monthly subscription</h1>
+      <p class="banner-free">Checkout paused — the converter is free to use</p>
+      <h1>Free now. Page packs later — no forced subscription.</h1>
       <p class="lead">
-        Built for bookkeepers and freelancers who only convert a few dozen pages a month.
-        Pay for pages when you need them. Checkout via Paddle (Merchant of Record).
+        Use StatementCSV free while we finish billing. When packs launch, you’ll buy pages
+        only when you need them (e.g. tax season), not a monthly seat.
       </p>
-      {% if not paddle.ready %}
-      <p class="privacy" id="paddle-status">
-        💳 Live checkout is <strong>not connected yet</strong> — seller must finish Paddle sandbox/live setup
-        (client token + price IDs). Conversion tool stays free meanwhile.
-      </p>
-      {% else %}
-      <p class="privacy" id="paddle-status">
-        ✅ Paddle {{ paddle.env }} checkout ready. Test cards only if env is sandbox.
-      </p>
-      {% endif %}
+      <div class="cta-row">
+        <a class="btn primary" href="/#upload-card">Convert a statement free</a>
+      </div>
     </section>
 
     <section class="pricing-grid">
-      <article class="price-card">
+      <article class="price-card coming-soon">
         <h2>Starter</h2>
         <p class="price"><span class="amount">$9</span> / 100 pages</p>
         <ul>
@@ -45,32 +39,22 @@
           <li>Balance check on every file</li>
           <li>No file retention</li>
         </ul>
-        <button
-          type="button"
-          class="btn paddle-buy"
-          data-pack="starter"
-          data-price-id="{{ paddle.prices.starter }}"
-          {% if not paddle.prices.starter or not paddle.client_token %}disabled title="Paddle price ID not configured"{% endif %}
-        >{% if paddle.prices.starter and paddle.client_token %}Buy with Paddle{% else %}Buy with Paddle (setup needed){% endif %}</button>
+        <a class="btn" href="mailto:bo.ze@mail.grokbot.com?subject=StatementCSV%20page%20packs%20waitlist">Notify me when packs open</a>
+        <p class="soon-label">Coming soon</p>
       </article>
-      <article class="price-card featured">
+      <article class="price-card featured coming-soon">
         <div class="badge">Best for monthly books</div>
         <h2>Pro pack</h2>
         <p class="price"><span class="amount">$29</span> / 400 pages</p>
         <ul>
           <li>Everything in Starter</li>
-          <li>Credits never expire (planned metering)</li>
+          <li>Credits that don’t expire (planned)</li>
           <li>Same privacy promise</li>
         </ul>
-        <button
-          type="button"
-          class="btn primary paddle-buy"
-          data-pack="pro"
-          data-price-id="{{ paddle.prices.pro }}"
-          {% if not paddle.prices.pro or not paddle.client_token %}disabled title="Paddle price ID not configured"{% endif %}
-        >{% if paddle.prices.pro and paddle.client_token %}Buy with Paddle{% else %}Buy with Paddle (setup needed){% endif %}</button>
+        <a class="btn primary" href="mailto:bo.ze@mail.grokbot.com?subject=StatementCSV%20page%20packs%20waitlist">Notify me when packs open</a>
+        <p class="soon-label">Coming soon</p>
       </article>
-      <article class="price-card">
+      <article class="price-card coming-soon">
         <h2>Bulk</h2>
         <p class="price"><span class="amount">$79</span> / 1,500 pages</p>
         <ul>
@@ -78,13 +62,8 @@
           <li>Same privacy promise</li>
           <li>OCR scanned pages — later add-on</li>
         </ul>
-        <button
-          type="button"
-          class="btn paddle-buy"
-          data-pack="bulk"
-          data-price-id="{{ paddle.prices.bulk }}"
-          {% if not paddle.prices.bulk or not paddle.client_token %}disabled title="Paddle price ID not configured"{% endif %}
-        >{% if paddle.prices.bulk and paddle.client_token %}Buy with Paddle{% else %}Buy with Paddle (setup needed){% endif %}</button>
+        <a class="btn" href="mailto:bo.ze@mail.grokbot.com?subject=StatementCSV%20page%20packs%20waitlist">Notify me when packs open</a>
+        <p class="soon-label">Coming soon</p>
       </article>
     </section>
 
@@ -92,23 +71,14 @@
       <h3>Why not a subscription?</h3>
       <p>
         Many accountants only need 25–35 pages a month and hate minimum monthly plans.
-        Page packs match that usage.
+        Page packs will match that usage — pay-per-page when ready, free until then.
       </p>
-      <p class="privacy">Payments go through Paddle as Merchant of Record. We never store your bank PDFs.</p>
+      <p class="privacy">We never store your bank PDFs. Billing (Paddle) stays off until packs launch.</p>
     </section>
   </main>
 
   <footer class="foot">
-    <span>BOB-25 · StatementCSV · <a href="/privacy">Privacy</a></span>
+    <span>StatementCSV · free now · <a href="/privacy">Privacy</a></span>
   </footer>
-
-  <script>
-    window.__PADDLE__ = {
-      env: {{ paddle.env|tojson }},
-      token: {{ paddle.client_token|tojson }},
-      ready: {{ paddle.ready|tojson }}
-    };
-  </script>
-  <script src="/static/paddle-checkout.js"></script>
 </body>
 </html>

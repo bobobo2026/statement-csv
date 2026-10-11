@@ -25,12 +25,14 @@
         <li>Uploaded PDFs stay in RAM for the request, then are discarded.</li>
         <li>We do not create accounts or keep a transaction database in this MVP.</li>
         <li>CSV/Excel downloads are rebuilt from data already in your browser session.</li>
-        <li>Payments (when enabled) are processed by Paddle; card data never hits our servers.</li>
+        <li>Payments are paused; when enabled later, card data will go through Paddle — never our servers.</li>
+        <li>We keep only aggregate counters (page views, parse success/fail, downloads) — no file contents, no filenames with account numbers.</li>
         <li>Server access logs may record IP and User-Agent at the host layer — not file contents.</li>
       </ul>
-      <p class="privacy">This is a product privacy notice for the MVP, not legal advice.</p>
+      <p class="privacy">FAQ: <strong>Do you store my PDF?</strong> No. Parsed in memory, then discarded.</p>
+      <p class="hint">This is a product privacy notice for the MVP, not legal advice.</p>
     </section>
   </main>
-  <footer class="foot"><span>StatementCSV</span></footer>
+  <footer class="foot"><span>StatementCSV · <a href="/">Back to converter</a></span></footer>
 </body>
 </html>

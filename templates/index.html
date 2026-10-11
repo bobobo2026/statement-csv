@@ -3,14 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Bank Statement → CSV / Excel</title>
+  <title>Free Bank Statement PDF → CSV / Excel — StatementCSV</title>
+  <meta name="description" content="Free bank statement PDF to CSV or Excel converter with balance check. No signup. Files parsed in memory — not retained. Text-layer PDFs only." />
   <link rel="stylesheet" href="/static/style.css" />
 </head>
 <body>
   <header class="top">
     <div class="brand">StatementCSV</div>
     <nav>
-      <a href="/">Convert</a>
+      <a href="/#upload-card">Convert</a>
       <a href="/pricing">Pricing</a>
       <a href="/privacy">Privacy</a>
     </nav>
@@ -18,19 +19,33 @@
 
   <main class="wrap">
     <section class="hero">
-      <h1>Bank statement PDF → CSV / Excel</h1>
+      <p class="kicker">Free tool · No account · No file retention</p>
+      <h1>Bank statement PDF → CSV / Excel — free, private, with balance check</h1>
       <p class="lead">
-        Upload a <strong>text-layer</strong> bank statement. We extract transactions,
-        preview them, and run a balance check:
-        <code>opening + deposits − withdrawals = closing</code>.
+        Drop a text-layer bank PDF. Get a clean transaction table, download CSV or Excel,
+        and verify <code>opening + deposits − withdrawals = closing</code>.
+        Files stay in memory — we don’t keep your statements.
       </p>
-      <p class="privacy">
-        🔒 Privacy: your PDF is parsed in memory and <strong>not saved</strong> on our servers.
-        Nothing is retained after you leave this page.
+      <ul class="feature-list">
+        <li>Free to use right now — no account required</li>
+        <li>Balance check on every file so you catch missing rows early</li>
+        <li>Privacy-first: parsed in RAM, not saved to disk</li>
+        <li>Built for bookkeepers &amp; freelancers who hate monthly minimums</li>
+        <li>Page packs coming later for heavy months (OCR for scans later too)</li>
+      </ul>
+      <div class="cta-row">
+        <a class="btn primary" href="#upload-card">Convert a statement free</a>
+        <a class="btn" href="/pricing">See how pricing will work</a>
+      </div>
+      <p class="limit-bar">
+        Works best with <strong>text-layer</strong> (digitally issued) PDFs.
+        Scanned photos need OCR — not available yet.
       </p>
+      <p class="trust-bar">No signup · No file retention · Balance verified · Honest about text-layer limits</p>
     </section>
 
     <section class="card" id="upload-card">
+      <h2 class="upload-heading">Upload &amp; convert</h2>
       <label class="drop" id="dropzone" for="file-input">
         <input type="file" id="file-input" accept="application/pdf,.pdf" hidden />
         <span class="drop-title">Drop a PDF here, or click to choose</span>
@@ -72,17 +87,17 @@
     </section>
 
     <section class="card muted-card">
-      <h3>MVP limits</h3>
+      <h3>Honest limits</h3>
       <ul>
-        <li>Text-layer (digitally generated) PDFs only — scanned images need OCR (stubbed).</li>
+        <li>Text-layer (digitally generated) PDFs only — scanned images need OCR (coming later).</li>
         <li>Layouts vary by bank; odd formats may need manual cleanup in Excel.</li>
-        <li>No account required for this local demo; page-pack credits will gate volume later.</li>
+        <li>No account required. The tool is free while billing stays paused.</li>
       </ul>
     </section>
   </main>
 
   <footer class="foot">
-    <span>BOB-25 MVP · not financial advice · files not retained</span>
+    <span>StatementCSV · free MVP · not financial advice · files not retained · <a href="/privacy">Privacy</a></span>
   </footer>
   <script src="/static/app.js"></script>
 </body>
