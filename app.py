@@ -31,44 +31,78 @@ _ALLOWED_EVENTS = frozenset(
         "balance_unknown",
     }
 )
-_stats: dict[str, int] = {k: 0 for k in _ALLOWED_EVENTS}
+def _empty_stats() -> dict[str, int]:
+    return {k: 0 for k in _ALLOWED_EVENTS}
 
 
-def _load_stats() -> None:
-    global _stats
+def _read_stats_unlocked(fh) -> dict[str, int]:
+    """Read counters from an open file handle (caller holds lock)."""
+    out = _empty_stats()
     try:
-        if _STATS_PATH.is_file():
-            data = json.loads(_STATS_PATH.read_text(encoding="utf-8"))
-            if isinstance(data, dict):
-                with _STATS_LOCK:
-                    for k in _ALLOWED_EVENTS:
-                        if isinstance(data.get(k), int) and data[k] >= 0:
-                            _stats[k] = data[k]
+        fh.seek(0)
+        raw = fh.read()
+        if not raw:
+            return out
+        data = json.loads(raw)
+        if isinstance(data, dict):
+            for k in _ALLOWED_EVENTS:
+                if isinstance(data.get(k), int) and data[k] >= 0:
+                    out[k] = data[k]
     except Exception:
         pass
+    return out
 
 
-def _persist_stats() -> None:
-    try:
+def _write_stats_unlocked(fh, payload: dict[str, int]) -> None:
+    fh.seek(0)
+    fh.truncate()
+    fh.write(json.dumps(payload, indent=2))
+    fh.flush()
+
+
+def _with_stats_file(write: bool = False):
+    """Context manager: flock the stats file so multi-worker gunicorn stays consistent."""
+    import fcntl
+    from contextlib import contextmanager
+
+    @contextmanager
+    def _cm():
         _STATS_PATH.parent.mkdir(parents=True, exist_ok=True)
-        with _STATS_LOCK:
-            payload = dict(_stats)
-        tmp = _STATS_PATH.with_suffix(".tmp")
-        tmp.write_text(json.dumps(payload, indent=2), encoding="utf-8")
-        tmp.replace(_STATS_PATH)
-    except Exception:
-        pass
+        # a+ so file exists; binary-ish text mode for flock on POSIX
+        fh = open(_STATS_PATH, "a+", encoding="utf-8")
+        try:
+            fcntl.flock(fh.fileno(), fcntl.LOCK_EX if write else fcntl.LOCK_SH)
+            yield fh
+        finally:
+            try:
+                fcntl.flock(fh.fileno(), fcntl.LOCK_UN)
+            except Exception:
+                pass
+            fh.close()
+
+    return _cm()
 
 
 def bump(event: str, n: int = 1) -> None:
     if event not in _ALLOWED_EVENTS:
         return
     with _STATS_LOCK:
-        _stats[event] = _stats.get(event, 0) + n
-    _persist_stats()
+        try:
+            with _with_stats_file(write=True) as fh:
+                payload = _read_stats_unlocked(fh)
+                payload[event] = payload.get(event, 0) + n
+                _write_stats_unlocked(fh, payload)
+        except Exception:
+            pass
 
 
-_load_stats()
+def read_stats() -> dict[str, int]:
+    with _STATS_LOCK:
+        try:
+            with _with_stats_file(write=False) as fh:
+                return _read_stats_unlocked(fh)
+        except Exception:
+            return _empty_stats()
 
 
 def paddle_config() -> dict:
@@ -141,6 +175,12 @@ def guide_subscription_frustration():
     return render_template("guides/why-subscription-converters-frustrate-bookkeepers.html")
 
 
+@app.get("/guides/bank-statement-pdf-to-excel-quickbooks")
+def guide_quickbooks_excel():
+    bump("page_view")
+    return render_template("guides/bank-statement-pdf-to-excel-quickbooks.html")
+
+
 @app.get("/api/config")
 def api_config():
     cfg = paddle_config()
@@ -174,9 +214,7 @@ def api_event():
 @app.get("/api/stats")
 def api_stats():
     """Public aggregate counters for the free funnel dashboard."""
-    with _STATS_LOCK:
-        out = dict(_stats)
-    return jsonify({"ok": True, "counters": out, "note": "aggregates only; no PII"})
+    return jsonify({"ok": True, "counters": read_stats(), "note": "aggregates only; no PII"})
 
 
 @app.post("/api/parse")
@@ -267,6 +305,11 @@ def sitemap_xml():
             "https://statementcsv.spacebit.qzz.io/guides/why-subscription-converters-frustrate-bookkeepers",
             "0.7",
             "monthly",
+        ),
+        (
+            "https://statementcsv.spacebit.qzz.io/guides/bank-statement-pdf-to-excel-quickbooks",
+            "0.9",
+            "weekly",
         ),
     ]
     parts = [

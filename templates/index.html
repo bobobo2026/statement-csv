@@ -15,6 +15,58 @@
   <meta name="twitter:title" content="Free Bank Statement PDF → CSV / Excel — StatementCSV" />
   <meta name="twitter:description" content="Free bank statement PDF to CSV or Excel converter with balance check. No signup. Files parsed in memory — not retained. Text-layer PDFs only." />
   <link rel="stylesheet" href="/static/style.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is StatementCSV free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The converter is free to use while billing is paused. No account is required. Optional page packs may come later."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you store my bank statement PDF?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Uploaded PDFs are parsed in memory for the request and are not retained on disk."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is a text-layer PDF?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A digitally issued bank PDF where you can highlight text with the mouse. Scanned photos of paper statements need OCR, which StatementCSV does not support yet."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the balance check?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "StatementCSV verifies opening balance + deposits − withdrawals equals the closing balance so you catch missing rows before import."
+        }
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "StatementCSV",
+    "url": "https://statementcsv.spacebit.qzz.io/",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+    "description": "Free bank statement PDF to CSV or Excel converter with balance check. No signup. Files not retained."
+  }
+  </script>
 </head>
 <body>
   <header class="top">
@@ -35,6 +87,10 @@
         Drop a text-layer bank PDF. Get a clean transaction table, download CSV or Excel,
         and verify <code>opening + deposits − withdrawals = closing</code>.
         Files stay in memory — we don’t keep your statements.
+      </p>
+      <p class="hero-illu">
+        <img class="hero-illustration" src="/static/statementcsv-flow.svg" width="520" height="120"
+             alt="Diagram: bank statement PDF uploads in memory, extracts transactions, balance check, then CSV or Excel download — file not retained" />
       </p>
       <ul class="feature-list">
         <li>Free to use right now — no account required</li>
@@ -94,6 +150,22 @@
           <tbody></tbody>
         </table>
       </div>
+    </section>
+
+
+    <section class="card" id="home-faq">
+      <h2 style="margin-top:0;font-size:1.15rem">FAQ</h2>
+      <dl class="faq">
+        <dt>Is it free?</dt>
+        <dd>Yes while billing is paused. No account required.</dd>
+        <dt>Do you keep my PDF?</dt>
+        <dd>No — parsed in RAM, not saved to disk. <a href="/privacy">Privacy</a>.</dd>
+        <dt>Text-layer only?</dt>
+        <dd>Yes for now. If you cannot select text in the PDF, wait for OCR or use a digitally issued statement.</dd>
+        <dt>QuickBooks / Xero?</dt>
+        <dd>Download CSV or Excel, then import. See <a href="/guides/bank-statement-pdf-to-excel-quickbooks">PDF → Excel for QuickBooks</a>.</dd>
+      </dl>
+      <p style="margin-top:1rem"><a href="/guides">More guides →</a></p>
     </section>
 
     <section class="card muted-card">

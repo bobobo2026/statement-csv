@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bank Statement PDF to Excel for QuickBooks (CSV Import Steps) — StatementCSV</title>
+  <meta name="description" content="Convert a text-layer bank statement PDF to Excel or CSV, verify balances, then import into QuickBooks Online. Free tool, no signup, files not retained." />
+  <link rel="canonical" href="https://statementcsv.spacebit.qzz.io/guides/bank-statement-pdf-to-excel-quickbooks" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://statementcsv.spacebit.qzz.io/guides/bank-statement-pdf-to-excel-quickbooks" />
+  <meta property="og:title" content="Bank Statement PDF to Excel for QuickBooks (CSV Import Steps)" />
+  <meta property="og:description" content="Convert a text-layer bank statement PDF to Excel or CSV, verify balances, then import into QuickBooks Online. Free tool, no signup." />
+  <meta property="og:site_name" content="StatementCSV" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Bank Statement PDF to Excel for QuickBooks — StatementCSV" />
+  <meta name="twitter:description" content="Convert bank statement PDF to Excel/CSV, check balances, import to QuickBooks. Free, no signup." />
+  <link rel="stylesheet" href="/static/style.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Can I import a bank statement PDF directly into QuickBooks?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "QuickBooks Online does not import arbitrary bank PDFs as a transaction list. Convert the PDF to CSV or Excel first, then use Banking → Upload transactions (or a CSV import template) and map columns."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What CSV columns work best for QuickBooks?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A simple layout with Date, Description, and Amount (or separate Deposit and Withdrawal columns) works for most uploads. You may need to rename headers to match QuickBooks’ template for your region."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I know the spreadsheet matches the PDF?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use a balance check: opening + deposits − withdrawals should equal closing. StatementCSV shows pass/fail before you download. Spot-check the first day, last day, and one large transfer against the PDF."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does StatementCSV store my bank PDF?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Files are parsed in memory for the request and are not retained on disk."
+        }
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "Convert a bank statement PDF to Excel for QuickBooks",
+    "description": "Extract transactions from a text-layer bank PDF, verify balances, download Excel or CSV, then upload to QuickBooks Online.",
+    "step": [
+      {"@type": "HowToStep", "name": "Confirm text layer", "text": "Open the PDF and try to highlight text. If you cannot select text, it is a scan and needs OCR (not supported yet)."},
+      {"@type": "HowToStep", "name": "Convert with StatementCSV", "text": "Upload the PDF at StatementCSV, extract transactions, and confirm the balance check passes."},
+      {"@type": "HowToStep", "name": "Download Excel or CSV", "text": "Download Excel for review or CSV for import. Spot-check a few rows against the PDF."},
+      {"@type": "HowToStep", "name": "Upload to QuickBooks", "text": "In QuickBooks Online, use Banking upload or CSV import and map Date, Description, and amount columns."}
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header class="top">
+    <div class="brand"><a href="/" style="color:inherit;text-decoration:none">StatementCSV</a></div>
+    <nav>
+      <a href="/#upload-card">Convert</a>
+      <a href="/guides">Guides</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/privacy">Privacy</a>
+    </nav>
+  </header>
+
+  <main class="wrap guide">
+    <p class="kicker">Guide · QuickBooks · Long-tail</p>
+    <h1>Bank statement PDF to Excel for QuickBooks (CSV import steps)</h1>
+    <p class="lead">
+      QuickBooks does not turn a bank PDF into a clean transaction list by itself.
+      Bookkeepers usually convert the statement to Excel or CSV first, verify the math, then upload.
+      This page is a practical checklist—not tax or accounting advice.
+    </p>
+
+    <div class="cta-row">
+      <a class="btn primary" href="/#upload-card">Convert PDF → Excel free</a>
+      <a class="btn" href="/guides/bank-statement-to-csv">Full PDF → CSV walkthrough →</a>
+    </div>
+
+    <section class="card guide-body">
+      <h2>Direct answer</h2>
+      <p>
+        <strong>To get a bank statement PDF into QuickBooks Online:</strong>
+        (1) use a <em>text-layer</em> PDF from your bank,
+        (2) convert it to CSV or Excel with a balance check,
+        (3) upload via Banking → Upload transactions (or your region’s CSV import),
+        (4) map Date / Description / Amount columns and review matches.
+      </p>
+
+      <h2>Step-by-step</h2>
+      <ol>
+        <li><strong>Confirm text layer</strong> — highlight a date in the PDF. No selectable text = scan; StatementCSV cannot OCR yet.</li>
+        <li><strong>Convert</strong> — open the <a href="/#upload-card">free converter</a>, upload (max 15 MB), click Extract transactions.</li>
+        <li><strong>Balance check</strong> — require <code>opening + deposits − withdrawals = closing</code> before you trust the file.</li>
+        <li><strong>Download</strong> — Excel for filters; CSV for QuickBooks upload templates.</li>
+        <li><strong>Import</strong> — in QuickBooks Online, upload the file, map columns, and reconcile any unmatched rows.</li>
+      </ol>
+
+      <h2 id="faq">FAQ (answer-engine style)</h2>
+      <dl class="faq">
+        <dt>Can QuickBooks import a bank PDF directly?</dt>
+        <dd>Usually no for arbitrary statement PDFs. Convert to CSV/Excel first, then use Banking upload or a CSV template.</dd>
+        <dt>Excel or CSV for QuickBooks?</dt>
+        <dd>Both can work. CSV is the common upload format; Excel is better for cleaning columns before import.</dd>
+        <dt>What if the balance check fails?</dt>
+        <dd>A row may be missing or miscategorized. Fix in Excel before importing—do not force a bad file into QuickBooks.</dd>
+        <dt>Is StatementCSV free? Do you keep my PDF?</dt>
+        <dd>Free while billing is paused. No account. Parsed in RAM; not retained. See <a href="/privacy">Privacy</a>.</dd>
+        <dt>Does this work with Xero too?</dt>
+        <dd>Same idea: clean CSV/Excel first, then use Xero’s bank statement import and map columns.</dd>
+      </dl>
+
+      <h2>Related</h2>
+      <ul>
+        <li><a href="/guides/bank-statement-to-csv">How to convert a bank statement PDF to CSV</a></li>
+        <li><a href="/guides/why-subscription-converters-frustrate-bookkeepers">Why subscription converters frustrate bookkeepers</a></li>
+        <li><a href="/pricing">How page packs will work later</a></li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2 style="margin-top:0;font-size:1.15rem">Try the free converter</h2>
+      <p class="lead" style="margin-bottom:1rem">Text-layer PDFs · balance check · CSV &amp; Excel · no signup.</p>
+      <a class="btn primary" href="/#upload-card">Convert a bank statement free</a>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span>StatementCSV · <a href="/">Converter</a> · <a href="/guides">Guides</a> · <a href="/privacy">Privacy</a> · not financial advice</span>
+  </footer>
+</body>
+</html>

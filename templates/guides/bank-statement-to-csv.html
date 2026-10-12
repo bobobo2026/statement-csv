@@ -6,7 +6,7 @@
   <title>How to Convert a Bank Statement PDF to CSV (With Balance Check) — StatementCSV</title>
   <meta name="description" content="Step-by-step: convert a text-layer bank statement PDF to CSV or Excel, verify opening + deposits − withdrawals = closing, and download without signup." />
   <link rel="canonical" href="https://statementcsv.spacebit.qzz.io/guides/bank-statement-to-csv" />
-  <meta property="og:type" content="website" />
+  <meta property="og:type" content="article" />
   <meta property="og:url" content="https://statementcsv.spacebit.qzz.io/guides/bank-statement-to-csv" />
   <meta property="og:title" content="How to Convert a Bank Statement PDF to CSV (With Balance Check) — StatementCSV" />
   <meta property="og:description" content="Step-by-step: convert a text-layer bank statement PDF to CSV or Excel, verify opening + deposits − withdrawals = closing, and download without signup." />
@@ -15,6 +15,59 @@
   <meta name="twitter:title" content="How to Convert a Bank Statement PDF to CSV (With Balance Check) — StatementCSV" />
   <meta name="twitter:description" content="Step-by-step: convert a text-layer bank statement PDF to CSV or Excel, verify opening + deposits − withdrawals = closing, and download without signup." />
   <link rel="stylesheet" href="/static/style.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I convert a bank statement PDF to CSV?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use a text-layer bank PDF, upload it to a converter like StatementCSV, extract transactions, verify opening + deposits − withdrawals = closing, then download CSV or Excel."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is a text-layer bank statement PDF?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A digitally issued PDF where you can select text with the mouse. Scanned photos need OCR and will not convert until OCR is available."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why use a balance check when converting bank PDFs?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A balance check catches missing or miscategorized rows before you import into QuickBooks, Xero, or Excel."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is converting bank statements free on StatementCSV?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes while billing is paused. No account required. Uploads are not retained on disk."
+        }
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "Convert a bank statement PDF to CSV with a balance check",
+    "step": [
+      {"@type": "HowToStep", "name": "Confirm text layer", "text": "Highlight text in the PDF to confirm it is not a scan."},
+      {"@type": "HowToStep", "name": "Upload and extract", "text": "Upload the PDF and extract transactions."},
+      {"@type": "HowToStep", "name": "Read balance check", "text": "Confirm opening + deposits − withdrawals equals closing."},
+      {"@type": "HowToStep", "name": "Download CSV or Excel", "text": "Download and spot-check rows before accounting import."}
+    ]
+  }
+  </script>
 </head>
 <body>
   <header class="top">
@@ -99,15 +152,23 @@
         <li>Bank layouts differ. Odd formats may need a few manual fixes—that is normal, not a “100% every bank” claim.</li>
       </ul>
 
-      <h2>Privacy quick FAQ</h2>
-      <ul>
-        <li><strong>Do you store my PDF?</strong> No. Parsed in RAM for the request, then discarded. See <a href="/privacy">Privacy</a>.</li>
-        <li><strong>Do I need an account?</strong> No.</li>
-        <li><strong>Is it free?</strong> Yes while billing is paused. Optional page packs may come later—no forced monthly seat right now.</li>
-      </ul>
+      <h2 id="faq">FAQ (clear answers)</h2>
+      <dl class="faq">
+        <dt>How do I convert a bank statement PDF to CSV?</dt>
+        <dd>Confirm the PDF has a selectable text layer, upload it to the free converter, run the balance check, then download CSV or Excel.</dd>
+        <dt>Do you store my PDF?</dt>
+        <dd>No. Parsed in RAM for the request, then discarded. See <a href="/privacy">Privacy</a>.</dd>
+        <dt>Do I need an account?</dt>
+        <dd>No.</dd>
+        <dt>Is it free?</dt>
+        <dd>Yes while billing is paused. Optional page packs may come later—no forced monthly seat right now.</dd>
+        <dt>Can I use the file in QuickBooks?</dt>
+        <dd>Yes—download CSV/Excel then upload. See <a href="/guides/bank-statement-pdf-to-excel-quickbooks">PDF to Excel for QuickBooks</a>.</dd>
+      </dl>
 
       <h2>Related</h2>
       <ul>
+        <li><a href="/guides/bank-statement-pdf-to-excel-quickbooks">Bank statement PDF to Excel for QuickBooks</a></li>
         <li><a href="/guides/why-subscription-converters-frustrate-bookkeepers">Why subscription PDF converters frustrate bookkeepers</a></li>
         <li><a href="/pricing">How pricing will work later</a></li>
       </ul>

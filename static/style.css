@@ -177,3 +177,12 @@ code { background: #121a26; padding: .1rem .35rem; border-radius: 4px; font-size
 .guide-body li { margin: .4rem 0; }
 .guide-list { list-style: none; padding-left: 0; }
 .guide-list li { margin: 1rem 0; line-height: 1.5; }
+
+.faq { margin: 0; }
+.faq dt { font-weight: 700; margin-top: 0.85rem; color: var(--text); }
+.faq dd { margin: 0.35rem 0 0; color: var(--muted); line-height: 1.5; }
+.hero-illu { margin: 1rem 0 0.25rem; }
+.hero-illustration { max-width: 100%; height: auto; border-radius: 12px; display: block; }
+.guide-list { list-style: none; padding: 0; margin: 0; }
+.guide-list li { padding: 0.75rem 0; border-bottom: 1px solid var(--line); }
+.guide-list li:last-child { border-bottom: none; }
