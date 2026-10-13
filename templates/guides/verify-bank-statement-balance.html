@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>How to Verify a Bank Statement Balance After Converting PDF to CSV — StatementCSV</title>
+  <meta name="description" content="Check opening balance + deposits − withdrawals = closing balance after converting a bank statement PDF to CSV or Excel, and find missing or duplicated rows." />
+  <link rel="canonical" href="https://statementcsv.spacebit.qzz.io/guides/verify-bank-statement-balance" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://statementcsv.spacebit.qzz.io/guides/verify-bank-statement-balance" />
+  <meta property="og:title" content="How to Verify a Bank Statement Balance After Converting PDF to CSV — StatementCSV" />
+  <meta property="og:description" content="Check opening balance + deposits − withdrawals = closing balance after converting a bank statement PDF to CSV or Excel, and find missing or duplicated rows." />
+  <meta property="og:site_name" content="StatementCSV" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="How to Verify a Bank Statement Balance After Converting PDF to CSV — StatementCSV" />
+  <meta name="twitter:description" content="Check opening balance + deposits − withdrawals = closing balance after converting a bank statement PDF to CSV or Excel, and find missing or duplicated rows." />
+  <link rel="stylesheet" href="/static/style.css" />
+  <script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is the bank statement balance check formula?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Opening balance + total deposits (credits) \u2212 total withdrawals (debits) should equal the closing balance printed on the statement. If it does not, at least one row is missing, duplicated, or has the wrong sign."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Why doesn't my converted CSV balance?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Common causes: a transaction split across a page break, a duplicated header or carried-forward line counted as a transaction, a credit read as a debit, or pending items that are not on the statement."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How do I find the missing row?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Compare the running balance column row by row: the first row where the previous balance plus the amount does not equal the printed balance is where the error starts. A difference equal to one transaction amount usually means a missing row; twice the amount usually means a wrong sign."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does StatementCSV check the balance automatically?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes. After extracting a text-layer PDF it shows opening, deposits, withdrawals, computed closing, printed closing and the difference. It is free right now and uploads are not retained."
+   }
+  }
+ ]
+}
+</script>
+</head>
+<body>
+  <header class="top">
+    <div class="brand"><a href="/" style="color:inherit;text-decoration:none">StatementCSV</a></div>
+    <nav>
+      <a href="/#upload-card">Convert</a>
+      <a href="/guides">Guides</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/privacy">Privacy</a>
+    </nav>
+  </header>
+
+  <main class="wrap guide">
+    <p class="kicker">Guide</p>
+    <h1>How to verify a bank statement balance after converting PDF to CSV</h1>
+    <p class="lead">Converting is the easy part. Proving the CSV is complete before you import it into QuickBooks, Xero or Excel is what saves rework.</p>
+    <section class="card guide-body">
+      <h2>The one formula to check</h2>
+      <p><code>opening balance + total deposits − total withdrawals = closing balance</code></p>
+      <p>Take the opening and closing balances printed on the statement, sum the deposit and withdrawal columns of your CSV, and compare. A difference of 0.00 means no row is missing or double-counted (it does not prove every date or description is right, so still spot-check a few rows).</p>
+      <h2>Step by step in Excel or Google Sheets</h2>
+      <ol>
+        <li>Put deposits and withdrawals in separate columns as positive numbers.</li>
+        <li><code>=SUM(C:C)</code> for deposits and <code>=SUM(D:D)</code> for withdrawals.</li>
+        <li>Computed closing: <code>=opening + deposits − withdrawals</code>.</li>
+        <li>Difference: <code>=computed − printed closing</code>, rounded to 2 decimals.</li>
+        <li>If the statement has a running balance column, add <code>=E1 + C2 − D2 − E2</code> down the sheet; the first non-zero row is where the problem starts.</li>
+      </ol>
+      <h2>Reading the difference</h2>
+      <ul>
+        <li><strong>Equals one transaction amount</strong> → that row is missing (often at a page break).</li>
+        <li><strong>Equals twice an amount</strong> → a deposit was read as a withdrawal or vice versa.</li>
+        <li><strong>Equals a balance figure</strong> → a "balance brought forward" line was counted as a transaction.</li>
+      </ul>
+      <h2>Let the converter do it</h2>
+      <p>StatementCSV runs this check on every text-layer PDF and shows opening, deposits, withdrawals, computed and printed closing, and the difference before you download. Scanned PDFs are not supported yet (no OCR).</p>
+      <h2>FAQ</h2>
+      <h3>What is the bank statement balance check formula?</h3><p>Opening balance + total deposits (credits) − total withdrawals (debits) should equal the closing balance printed on the statement. If it does not, at least one row is missing, duplicated, or has the wrong sign.</p><h3>Why doesn't my converted CSV balance?</h3><p>Common causes: a transaction split across a page break, a duplicated header or carried-forward line counted as a transaction, a credit read as a debit, or pending items that are not on the statement.</p><h3>How do I find the missing row?</h3><p>Compare the running balance column row by row: the first row where the previous balance plus the amount does not equal the printed balance is where the error starts. A difference equal to one transaction amount usually means a missing row; twice the amount usually means a wrong sign.</p><h3>Does StatementCSV check the balance automatically?</h3><p>Yes. After extracting a text-layer PDF it shows opening, deposits, withdrawals, computed closing, printed closing and the difference. It is free right now and uploads are not retained.</p>
+      <p style="margin-top:1.25rem"><a class="btn primary" href="/#upload-card">Convert and check a statement free</a></p>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span>StatementCSV · <a href="/">Converter</a> · <a href="/privacy">Privacy</a> · not financial advice</span>
+  </footer>
+</body>
+</html>

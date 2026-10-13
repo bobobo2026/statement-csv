@@ -22,6 +22,7 @@ _ALLOWED_EVENTS = frozenset(
     {
         "page_view",
         "file_selected",
+        "upload_received",
         "parse_ok",
         "parse_fail",
         "download_csv",
@@ -175,6 +176,11 @@ def guide_subscription_frustration():
     return render_template("guides/why-subscription-converters-frustrate-bookkeepers.html")
 
 
+@app.get("/guides/verify-bank-statement-balance")
+def guide_verify_balance():
+    return render_template("guides/verify-bank-statement-balance.html")
+
+
 @app.get("/guides/bank-statement-pdf-to-excel-quickbooks")
 def guide_quickbooks_excel():
     bump("page_view")
@@ -199,10 +205,11 @@ def api_config():
     )
 
 
-@app.post("/api/event")
+@app.post("/api/e")
+@app.post("/api/event")  # legacy path (kept for cached JS)
 def api_event():
     """Client-side funnel pings. Aggregate counts only — no filenames or PDF data."""
-    data = request.get_json(silent=True) or {}
+    data = request.get_json(silent=True, force=True) or {}
     event = (data.get("event") or "").strip()
     if event not in _ALLOWED_EVENTS:
         return jsonify({"ok": False, "message": "unknown event"}), 400
@@ -219,6 +226,8 @@ def api_stats():
 
 @app.post("/api/parse")
 def api_parse():
+    # Server-side counter: independent of client JS / ad blockers.
+    bump("upload_received")
     if "file" not in request.files:
         bump("parse_fail")
         return jsonify({"ok": False, "message": "No file uploaded."}), 400
@@ -301,6 +310,7 @@ def sitemap_xml():
         ("https://statementcsv.spacebit.qzz.io/privacy", "0.4", "yearly"),
         ("https://statementcsv.spacebit.qzz.io/guides", "0.8", "weekly"),
         ("https://statementcsv.spacebit.qzz.io/guides/bank-statement-to-csv", "0.9", "weekly"),
+        ("https://statementcsv.spacebit.qzz.io/guides/verify-bank-statement-balance", "0.8", "monthly"),
         (
             "https://statementcsv.spacebit.qzz.io/guides/why-subscription-converters-frustrate-bookkeepers",
             "0.7",

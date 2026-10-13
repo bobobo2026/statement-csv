@@ -14,7 +14,7 @@
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Free Bank Statement PDF → CSV / Excel — StatementCSV" />
   <meta name="twitter:description" content="Free bank statement PDF to CSV or Excel converter with balance check. No signup. Files parsed in memory — not retained. Text-layer PDFs only." />
-  <link rel="stylesheet" href="/static/style.css" />
+  <link rel="stylesheet" href="/static/style.css?v=20261013" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -126,6 +126,10 @@
     </section>
 
     <section class="card" id="result" hidden>
+      <div class="download-hero">
+        <button type="button" class="btn primary btn-big" id="btn-csv-top">⬇ Download CSV</button>
+        <span class="muted">or Excel below · nothing is stored on our server</span>
+      </div>
       <div class="balance" id="balance-box"></div>
 
       <div class="row between">
@@ -181,6 +185,6 @@
   <footer class="foot">
     <span>StatementCSV · free MVP · not financial advice · files not retained · <a href="/privacy">Privacy</a></span>
   </footer>
-  <script src="/static/app.js"></script>
+  <script src="/static/app.js?v=20261013"></script>
 </body>
 </html>

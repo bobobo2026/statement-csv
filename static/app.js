@@ -16,14 +16,14 @@
   let selectedFile = null;
   let lastTransactions = [];
 
+  // Neutral path name: "/api/event" matches common ad/tracker block lists.
   function track(event) {
+    const body = JSON.stringify({ event });
     try {
-      fetch("/api/event", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ event }),
-        keepalive: true,
-      }).catch(() => {});
+      if (navigator.sendBeacon && navigator.sendBeacon("/api/e", new Blob([body], { type: "application/json" }))) return;
+    } catch (_) {}
+    try {
+      fetch("/api/e", { method: "POST", headers: { "Content-Type": "application/json" }, body, keepalive: true }).catch(() => {});
     } catch (_) {}
   }
 
@@ -154,6 +154,8 @@
       renderBalance(data.balance_check);
       renderTable(lastTransactions);
       result.hidden = false;
+      try { result.scrollIntoView({ behavior: "smooth", block: "start" }); } catch (_) {}
+      try { btnCsv.focus({ preventScroll: true }); } catch (_) {}
       showStatus(data.message || "Done. File was not retained.");
     } catch (e) {
       showError(String(e.message || e));
@@ -165,4 +167,6 @@
 
   btnCsv.addEventListener("click", () => download("/api/download/csv", "transactions.csv").catch((e) => showError(e.message)));
   btnXlsx.addEventListener("click", () => download("/api/download/xlsx", "transactions.xlsx").catch((e) => showError(e.message)));
+  const btnCsvTop = document.getElementById("btn-csv-top");
+  if (btnCsvTop) btnCsvTop.addEventListener("click", () => btnCsv.click());
 })();
